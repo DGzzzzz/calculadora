@@ -1,26 +1,64 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <h1>Calculadora Aritmética</h1>
+    <input type="number" v-model.number="numero1" @input="calcularResultado">
+    <select v-model="operacao" @change="calcularResultado">
+      <option value="soma">+</option>
+      <option value="subtracao">-</option>
+      <option value="multiplicacao">*</option>
+      <option value="divisao">/</option>
+    </select>
+    <input type="number" v-model.number="numero2" @input="calcularResultado">
+    <div>
+      Resultado: {{ resultado }}
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      numero1: 0,
+      numero2: 0,
+      operacao: 'soma',
+      resultado: 0
+    };
+  },
+  methods: {
+    calcularResultado() {
+      switch (this.operacao) {
+        case 'soma':
+          this.resultado = this.numero1 + this.numero2;
+          break;
+        case 'subtracao':
+          this.resultado = this.numero1 - this.numero2;
+          break;
+        case 'multiplicacao':
+          this.resultado = this.numero1 * this.numero2;
+          break;
+        case 'divisao':
+          this.resultado = this.numero1 / this.numero2;
+          break;
+        default:
+          this.resultado = 0;
+      }
+    }
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: Roboto, sans-serif;
+  font-weight: bold;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 50px;
+}
+
+select, input{
+  margin: 10px;
+  padding: 5px;
 }
 </style>
